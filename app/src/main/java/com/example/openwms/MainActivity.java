@@ -8,8 +8,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ListView listView;
+    private String[] candidateNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.page_toolbar);
         setSupportActionBar(myToolbar);
     }
+
+ //https://stackoverflow.com/questions/32808996/android-add-two-toolbars-in-the-same-activity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -37,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+
+
         return true;
     }
 
@@ -46,17 +58,22 @@ public class MainActivity extends AppCompatActivity {
             case R.id.dashboard:
                 Intent dashboard = new Intent(this,MainActivity.class);
                 startActivity(dashboard);
+                return true;
             case R.id.orders:
                 Intent orders = new Intent(this,OrdersActivity.class);
                 startActivity(orders);
+                return true;
             case R.id.products:
                 Intent products = new Intent(this,ProductsActivity.class);
                 startActivity(products);
+                return true;
             case R.id.accounting:
                 Intent accounting = new Intent(this,AccountingActivity.class);
                 startActivity(accounting);
+                return true;
             default:
                 return true;
         }
     }
+    
 }

@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-    tools:context=".MainActivity"   android:layout_width="match_parent"
+    tools:context=".MainActivity"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
@@ -27,9 +27,51 @@
         android:elevation="10dp" />
 
     <TextView
+        android:id="@+id/orders_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_left"
+        android:layout_marginBottom="@dimen/margin_left"
+        android:layout_below="@id/page_toolbar"
+        android:layout_centerHorizontal="true"
+        android:text="Orders" />
+
+    <fragment
+        android:id="@+id/fragment_orders"
+        android:name="com.example.openwms.fragments.Dashboard_Orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:layout_below="@id/orders_title"
+        />
+
+    <TextView
+        android:id="@+id/revenue_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_left"
+        android:layout_marginBottom="@dimen/margin_left"
+        android:layout_below="@id/fragment_orders"
+        android:layout_centerHorizontal="true"
+        android:text="Revenue" />
+
+    <fragment
+        android:id="@+id/fragment_revenue"
+        android:name="com.example.openwms.fragments.Dashboard_Revenue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/colorAccent"
+        android:layout_below="@id/revenue_title"
+        />
+
+<!--
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20pt"
-        android:text="Dashboard Page" />
-
+        android:text="Dashboard Page"
+        android:layout_below="@id/page_toolbar"/>
+-->
 </RelativeLayout>
