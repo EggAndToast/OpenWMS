@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -157,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         ActionMenuView bottomBar = (ActionMenuView)findViewById(R.id.bottom_toolbar);
         Menu bottomMenu = bottomBar.getMenu();
         getMenuInflater().inflate(R.menu.btm_nav, bottomMenu);
+
         for (int i = 0; i < bottomMenu.size(); i++) {
             bottomMenu.getItem(i).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
@@ -165,8 +168,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
-
 
         return true;
     }
