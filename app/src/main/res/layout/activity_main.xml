@@ -66,6 +66,26 @@
         android:layout_below="@id/revenue_title"
         />
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/testDatabase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_revenue"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_left"
+        android:onClick="addAdaLovelace"
+        android:text="Test Database" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/testRead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/testDatabase"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_left"
+        android:onClick="getAllUsers"
+        android:text="Test REad" />
 <!--
     <TextView
         android:layout_width="wrap_content"
