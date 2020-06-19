@@ -36,56 +36,176 @@
         android:layout_centerHorizontal="true"
         android:text="Orders" />
 
-    <fragment
-        android:id="@+id/fragment_orders"
-        android:name="com.example.openwms.fragments.Dashboard_Orders"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/orderBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary"
         android:layout_below="@id/orders_title"
-        />
+        android:layout_gravity="fill"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:id="@+id/pending_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/pending_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pending" />
+
+            <TextView
+                android:id="@+id/pending_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pending_title"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:text="0" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/processed_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:layout_toEndOf="@id/pending_view"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Processed" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="0"
+                android:id="@+id/processed_number"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/shipped_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:layout_toEndOf="@id/processed_view"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shipped" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="0"
+                android:id="@+id/shipped_number"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/confirming_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/shipped_view"
+            android:orientation="vertical"
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirming" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="0"
+                android:id="@+id/confirming_number"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/revenue_title"
+        android:id="@+id/warehouseTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_left"
         android:layout_marginBottom="@dimen/margin_left"
-        android:layout_below="@id/fragment_orders"
+        android:layout_below="@id/orderBar"
         android:layout_centerHorizontal="true"
-        android:text="Revenue" />
+        android:text="Warehouse Conditions" />
 
-    <fragment
-        android:id="@+id/fragment_revenue"
-        android:name="com.example.openwms.fragments.Dashboard_Revenue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/colorAccent"
-        android:layout_below="@id/revenue_title"
-        />
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/testDatabase"
+    <LinearLayout
+        android:id="@+id/readouts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_revenue"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_left"
-        android:onClick="addAdaLovelace"
-        android:text="Test Database" />
+        android:layout_below="@id/warehouseTemp"
+        android:layout_gravity="fill"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/testRead"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/testDatabase"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_left"
-        android:onClick="getAllUsers"
-        android:text="Test REad" />
+        <LinearLayout
+            android:id="@+id/temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/temperature_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Temperature" />
+
+            <TextView
+                android:id="@+id/temperature_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pending_title"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:text="30C" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:layout_toEndOf="@id/temperature"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Humidity" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="80%"
+                android:id="@+id/humidity_number"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 <!--
     <TextView
         android:layout_width="wrap_content"

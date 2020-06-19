@@ -10,6 +10,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,12 +25,31 @@ import com.google.firebase.database.ValueEventListener;
 
 public class OrdersActivity extends AppCompatActivity {
 
+    private ListView listView;
+    private String[] candidateNames;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.page_toolbar);
         setSupportActionBar(myToolbar);
+
+
+        candidateNames = getResources().getStringArray(R.array.candidateNames);
+
+        listView = (ListView) findViewById(R.id.listViewSimple);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, candidateNames);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(
+
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Toast.makeText(getBaseContext(), candidateNames[position] + ", seriously?", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
     }
 
     @Override
@@ -59,16 +83,18 @@ public class OrdersActivity extends AppCompatActivity {
                 return true;
             case R.id.products:
                 Intent products = new Intent(this,ProductsActivity.class);
-                finish();
                 startActivity(products);
+                finish();
                 return true;
             case R.id.accounting:
                 Intent accounting = new Intent(this,AccountingActivity.class);
-                finish();
                 startActivity(accounting);
+                finish();
                 return true;
             default:
                 return true;
         }
     }
+
+
 }
