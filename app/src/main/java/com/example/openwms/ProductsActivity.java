@@ -1,5 +1,6 @@
 package com.example.openwms;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
@@ -7,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,59 +16,52 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 
 public class ProductsActivity extends AppCompatActivity {
 
     private ListView listView;
-    private String[] candidateNames;
-    private String[] candidateDetails;
-    public static int[] candidatePhotos = {
-            R.drawable.clinton,
-            R.drawable.sanders,
-            R.drawable.omalley,
-            R.drawable.chafee,
-            R.drawable.trump,
-            R.drawable.carson,
-            R.drawable.rubio,
-            R.drawable.bush
-    };
 
-    private ArrayList<Products> candidates = new ArrayList<>();
+    private ArrayList<Products> products = new ArrayList<>();
+    final ArrayList<Products> productList = new ArrayList<>();
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.page_toolbar);
         setSupportActionBar(myToolbar);
 
         setTitle("Products");
 
-        candidateNames = getResources().getStringArray(R.array.candidateNames);
-        candidateDetails = getResources().getStringArray(R.array.candidateDetails);
-        generateCandidates();
+        db.collection("product").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        productList.add(new Products(
+                                document.getId(),
+                                document.getString("quantity")));
+                     }
+                    Log.w("TAG", "Hello Products?" + productList);
 
-        listView = (ListView) findViewById(R.id.listViewComplex);
-        listView.setAdapter(new ProductAdapter(this, R.layout.list_item, candidates));
-        listView.setOnItemClickListener(
+                    ListView listView = findViewById(R.id.productListing);
+                    ProductAdapter productAdapter = new ProductAdapter(ProductsActivity.this, R.layout.list_item, productList);
+                    listView.setAdapter(productAdapter);
 
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                        Toast.makeText(getBaseContext(), "You clicked " + candidates.get(position), Toast.LENGTH_SHORT).show();
-                    }
+                 } else {
+                    Log.w("TAG", "Error getting documents.", task.getException());
                 }
-        );
-    }
-
-    private void generateCandidates() {
-
-        for (int i = 0; i < candidatePhotos.length; i++) {
-            candidates.add(new Products(candidateNames[i], candidateDetails[i], candidatePhotos[i]));
-        }
+            }
+        });
     }
 
     @Override

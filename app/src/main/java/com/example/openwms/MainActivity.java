@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         pending = (TextView)findViewById(R.id.pending_number);
         processing = (TextView)findViewById(R.id.processed_number);
-        shipping = (TextView)findViewById(R.id.shipped_number);
-        confirming = (TextView)findViewById(R.id.confirming_number);
+    /*    shipping = (TextView)findViewById(R.id.shipped_number);
+        confirming = (TextView)findViewById(R.id.confirming_number); */
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setApplicationId("1:894665555800:android:027e35c6435fa9f1d8af2d") // Required for Analytics.
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         /* Updated Pending Order */
 
         db.collection("orders")
-                .whereEqualTo("status", "pending")
+                .whereEqualTo("status", "Pending")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         /* Updated Processed Order */
 
         db.collection("orders")
-                .whereEqualTo("status", "processed")
+                .whereEqualTo("status", "Processed")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -108,43 +108,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        db.collection("orders")
-                .whereEqualTo("status", "shipped")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        count = 0;
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                count++;
-                            }
-                            Log.d("TAG","Count =" + count );
-                            shipping.setText(String.valueOf(count));
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-
-        db.collection("orders")
-                .whereEqualTo("status", "confirming")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        count = 0;
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                count++;
-                            }
-                            Log.d("TAG","Count =" + count );
-                            confirming.setText(String.valueOf(count));
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
     }
 
 
@@ -195,59 +158,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    public class User {
-
-        public String username;
-        public String email;
-
-        public User() {
-            // Default constructor required for calls to DataSnapshot.getValue(User.class)
-        }
-
-        public User(String username, String email) {
-            this.username = username;
-            this.email = email;
-        }
-
-    }
-
-    public void addAdaLovelace(View view) {
-        // [START add_ada_lovelace]
-        // Create a new user with a first and last name
-        Map<String, Object> user = new HashMap<>();
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
-
-        // Add a new document with a generated ID
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
-        // [END add_ada_lovelace]
-    }
-
-    private ListView listView;
-    private String[] orderDetails;
-
-    public void getAllUsers() {
-
-
-
-        // [END get_all_users]
+    public void getReadings(View view) {
+        Intent intent = new Intent(this,sensorActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 

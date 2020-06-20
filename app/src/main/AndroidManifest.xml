@@ -20,6 +20,7 @@
         <activity android:name=".ProductsActivity"></activity>
         <activity android:name=".OrdersDisplayActivity"
             android:parentActivityName=".OrdersActivity"></activity>
+        <activity android:name=".sensorActivity"></activity>
     </application>
 
 </manifest>

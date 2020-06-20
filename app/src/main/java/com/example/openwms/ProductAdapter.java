@@ -18,13 +18,13 @@ import java.util.ArrayList;
 public class ProductAdapter extends ArrayAdapter<Products> {
 
     private int resource;
-    private ArrayList<Products> candidates;
+    private ArrayList<Products> products;
     private Context context;
 
-    public ProductAdapter(Context context, int resource, ArrayList<Products> candidates) {
-        super(context, resource, candidates);
+    public ProductAdapter(Context context, int resource, ArrayList<Products> products) {
+        super(context, resource, products);
         this.resource = resource;
-        this.candidates = candidates;
+        this.products = products;
         this.context = context;
     }
 
@@ -42,13 +42,15 @@ public class ProductAdapter extends ArrayAdapter<Products> {
                 v = layoutInflater.inflate(resource, parent, false);
             }
 
-            ImageView imageView = (ImageView) v.findViewById(R.id.imageView);
-            TextView textViewName = (TextView) v.findViewById(R.id.textViewName);
-            TextView textViewDetail = (TextView) v.findViewById(R.id.textViewDetail);
+            // ImageView imageView = (ImageView) v.findViewById(R.id.imageView);
+            TextView productName = (TextView) v.findViewById(R.id.productName);
+            TextView onHand = (TextView) v.findViewById(R.id.quantityOnHand);
+            TextView warehouseQty = (TextView) v.findViewById(R.id.quantityWarehouse);
 
-            imageView.setImageResource(candidates.get(position).getPhoto());
-            textViewName.setText(candidates.get(position).getName());
-            textViewDetail.setText(candidates.get(position).getDetail());
+            //imageView.setImageResource(products.get(position).getPhoto());
+            productName.setText(products.get(position).getProductName());
+            onHand.setText("On Hand: " + products.get(position).getProductQuantity());
+            warehouseQty.setText("Warehouse: 0");
 
         } catch (Exception e) {
             e.printStackTrace();

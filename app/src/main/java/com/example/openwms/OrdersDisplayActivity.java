@@ -91,7 +91,7 @@ public class OrdersDisplayActivity extends AppCompatActivity  {
                         Log.d("Fuck","Item Scanned =>" + itemScanned);
 
                         ListView listView = findViewById(R.id.orderProducts);
-                        OrdersDisplayAdapter ordersDisplayAdapter = new OrdersDisplayAdapter(OrdersDisplayActivity.this, R.layout.list_item_scanning, orderItemList);
+                        OrdersDisplayAdapter ordersDisplayAdapter = new OrdersDisplayAdapter(OrdersDisplayActivity.this, R.layout.list_item, orderItemList);
                         listView.setAdapter(ordersDisplayAdapter);
                     }
 

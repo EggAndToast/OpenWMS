@@ -72,7 +72,6 @@
             android:id="@+id/processed_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_right"
             android:layout_toEndOf="@id/pending_view"
             android:orientation="vertical">
 
@@ -91,146 +90,138 @@
 
 
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/shipped_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_right"
-            android:layout_toEndOf="@id/processed_view"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Shipped" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="0"
-                android:id="@+id/shipped_number"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/confirming_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/shipped_view"
-            android:orientation="vertical"
-
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Confirming" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="0"
-                android:id="@+id/confirming_number"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_marginTop="@dimen/margin_right"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/ordersUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/orderBar"
-        android:text="Last update since 1d" />
-
-    <TextView
-        android:id="@+id/warehouseTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_left"
-        android:layout_marginBottom="@dimen/margin_left"
-        android:layout_below="@id/ordersUpdate"
-        android:layout_centerHorizontal="true"
-        android:text="Warehouse Conditions" />
-
-    <LinearLayout
-        android:id="@+id/warehouseReadouts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/warehouseTemp"
-        android:layout_gravity="fill"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true">
-
-        <LinearLayout
-            android:id="@+id/temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_right"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/temperature_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Temperature" />
-
-            <TextView
-                android:id="@+id/temperature_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/pending_title"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:text="30C" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/humidity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/temperature"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Humidity" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="80%"
-                android:id="@+id/humidity_number"/>
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_marginTop="@dimen/margin_right"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/lastUpdateWarehouse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/warehouseReadouts"
-        android:text="Last update since 1d" />
-
-
     <!--
+            <LinearLayout
+                android:id="@+id/shipped_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_right"
+                android:layout_toEndOf="@id/processed_view"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shipped" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="0"
+                    android:id="@+id/shipped_number"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/confirming_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/shipped_view"
+                android:orientation="vertical"
+
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Confirming" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="0"
+                    android:id="@+id/confirming_number"/>
+
+            </LinearLayout>
+-->
+        </LinearLayout>
+
         <TextView
+            android:layout_marginTop="@dimen/margin_right"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/ordersUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20pt"
-            android:text="Dashboard Page"
-            android:layout_below="@id/page_toolbar"/>
-    -->
+            android:layout_below="@id/orderBar"
+            android:text="Last update since 1d" />
+
+        <TextView
+            android:id="@+id/warehouseTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_left"
+            android:layout_marginBottom="@dimen/margin_left"
+            android:layout_below="@id/ordersUpdate"
+            android:layout_centerHorizontal="true"
+            android:text="Warehouse Conditions" />
+
+        <LinearLayout
+            android:id="@+id/warehouseReadouts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/warehouseTemp"
+            android:layout_gravity="fill"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true">
+
+            <LinearLayout
+                android:id="@+id/temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/temperature_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Temperature" />
+
+                <TextView
+                    android:id="@+id/temperature_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pending_title"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:text="30C" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/temperature"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Humidity" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="80%"
+                    android:id="@+id/humidity_number"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/warehouseReadouts"
+        android:layout_centerHorizontal="true"
+        android:onClick="getReadings"
+        android:text="Test Readings" />
+
 </RelativeLayout>

@@ -2,31 +2,20 @@ package com.example.openwms;
 
 public class Products {
 
-    private String name;
-    private String detail;
-    private int photo;
+    private String productName;
+    private String productQuantity;
 
-    public Products(String name, String detail, int photo) {
-        this.name = name;
-        this.detail = detail;
-        this.photo = photo;
+    public Products(String productName, String productQuantity) {
+        this.productName = productName;
+        this.productQuantity = productQuantity;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public String getDetail() {
-        return detail;
-    }
-
-    public int getPhoto() {
-        return photo;
-    }
-
-    @Override
-    public String toString() {
-        return detail;
+    public String getProductQuantity() {
+        return productQuantity;
     }
 
 }
