@@ -11,7 +11,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class OrdersAdapter extends ArrayAdapter<Orders> {
 
@@ -47,13 +54,18 @@ public class OrdersAdapter extends ArrayAdapter<Orders> {
             TextView price = (TextView) v.findViewById(R.id.price);
             TextView status = (TextView) v.findViewById(R.id.status);
 
-            //orderDate.setText(orderDetails.get(position).getOrderDate());
+            String SLA = getDate(orderDetails.get(position).getSLA());
+            String dateOrder = getDate(orderDetails.get(position).getOrderDate());
+
+            orderDate.setText("Date: " + dateOrder);
             platformUsed.setText(orderDetails.get(position).getPlatform());
-           // theSLA.setText(orderDetails.get(position).getSLA());
-            orderID.setText(orderDetails.get(position).getOrderID());
-            price.setText(orderDetails.get(position).getTotalPrice());
+            theSLA.setText("SLA: " + SLA);
+            orderID.setText("Order ID: " + orderDetails.get(position).getOrderID());
+            price.setText("$" + orderDetails.get(position).getTotalPrice());
             status.setText(orderDetails.get(position).getStatus());
 
+            TextView warning = (TextView) v.findViewById(R.id.warning);
+            warning.setText("Warning: " + getWarning(SLA, dateOrder) + " Days to ship");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,5 +73,24 @@ public class OrdersAdapter extends ArrayAdapter<Orders> {
         }
         return v;
     }
+
+    /*
+    * With Reference from https://stackoverflow.com/questions/41139218/from-timestamp-to-date-android
+    * */
+
+    private String getDate(String time) {
+        Date newTime = new Date(time);
+        SimpleDateFormat shortTime = new SimpleDateFormat("dd/MM/YYYY");
+        shortTime.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        return shortTime.format(newTime).toString();
+    }
+
+    private long getWarning(String SLA, String orderDate) throws ParseException {
+        SimpleDateFormat shortTime = new SimpleDateFormat("dd/MM/yyyy");
+        Date dateSLA = shortTime.parse(SLA);
+        Date dateOrder = shortTime.parse(orderDate);
+        long warningTime = TimeUnit.DAYS.convert(dateSLA.getTime() - dateOrder.getTime(), TimeUnit.MILLISECONDS);
+        return warningTime;
+     }
 
 }

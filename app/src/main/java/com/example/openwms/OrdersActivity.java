@@ -5,38 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.IgnoreExtraProperties;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Document;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 public class OrdersActivity extends AppCompatActivity {
 
@@ -48,6 +34,10 @@ public class OrdersActivity extends AppCompatActivity {
     private ArrayList<String> platform = new ArrayList<>();
     private ArrayList<String> status = new ArrayList<>();
     private ArrayList<String> totalPrice = new ArrayList<>();
+    public static String orderIDDisplay;
+    public static String orderItems;
+    public static String orderTracking;
+    public static String userID;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -64,31 +54,46 @@ public class OrdersActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                        final ArrayList<Orders> orderDetails = new ArrayList<>();
+
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
+                               // Log.d(TAG, document.getId() + " => " + document.getData());
+
+
+
                                 orderDetails.add(new Orders(document.getId(),
-                                        document.getTimestamp("SLA"),
-                                        document.getTimestamp("orderDate"),
+                                        document.getTimestamp("SLA").toDate().toString(),
+                                        document.getTimestamp("orderDate").toDate().toString(),
                                         document.getString("platform"),
                                         document.getString("status"),
-                                        document.getString("totalPrice")));
+                                        document.getString("totalPrice")
+                                        //, itemsGroup ,
+                                      //  document.getString("trackingCompany"),
+                                      //  document.getString("userID")
+
+                                ));
+
                             }
+
                             ListView listView = findViewById(R.id.ordersLayout);
                             OrdersAdapter ordersAdapter = new OrdersAdapter(OrdersActivity.this, R.layout.sixlistformat, orderDetails);
                             listView.setAdapter(ordersAdapter);
 
                             listView.setOnItemClickListener(
-
                                     new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                            Toast.makeText(getBaseContext(), "You clicked " + orderDetails.get(position).getOrderID(), Toast.LENGTH_SHORT).show();
+                                            Intent displayOrders = new Intent(getBaseContext(), OrdersDisplayActivity.class);
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString(orderIDDisplay, orderDetails.get(position).getOrderID());
+
+                                            displayOrders.putExtras(bundle);
+                                            startActivity(displayOrders);
+                                            //Toast.makeText(getBaseContext(), "You clicked " + orderDetails.get(position).getOrderID(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
                             );
-                            Log.d("During DBCollection", "Size = " + orderDetails.size());
 
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
@@ -97,25 +102,6 @@ public class OrdersActivity extends AppCompatActivity {
                     }
 
                 });
-
-
-
-/*
-        listView.setAdapter(new OrdersAdapter(this, R.layout.sixlistformat, orderDetails));
-        listView.setOnItemClickListener(
-
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                        Toast.makeText(getBaseContext(), "You clicked " + orderDetails.get(position), Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ); */
-    }
-
-    private void generateOrders() {
-
 
     }
 
