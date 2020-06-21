@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "894665555800",
+    "firebase_url": "https://openinventory-29c18.firebaseio.com",
+    "project_id": "openinventory-29c18",
+    "storage_bucket": "openinventory-29c18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894665555800:android:027e35c6435fa9f1d8af2d",
+        "android_client_info": {
+          "package_name": "com.example.openwms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894665555800-rcn0i5cq9fs2inbuddbvqtjc5d5fujcq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDraNcJxqH-ygEdsOSteQ3zI01Is_yCqSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894665555800-rcn0i5cq9fs2inbuddbvqtjc5d5fujcq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
