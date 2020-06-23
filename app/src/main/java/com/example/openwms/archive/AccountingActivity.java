@@ -1,14 +1,16 @@
-package com.example.openwms;
+package com.example.openwms.archive;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.openwms.MainActivity;
+import com.example.openwms.R;
 
 public class AccountingActivity extends AppCompatActivity {
     @Override
@@ -45,7 +47,7 @@ public class AccountingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.dashboard:
-                Intent dashboard = new Intent(this,MainActivity.class);
+                Intent dashboard = new Intent(this, MainActivity.class);
                 startActivity(dashboard);
                 finish();
                 return true;

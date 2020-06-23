@@ -6,136 +6,260 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/page_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        />
-
-    <androidx.appcompat.widget.ActionMenuView
-        android:id="@+id/bottom_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        android:textColorPrimary="@color/colorAccent"
-        android:elevation="10dp" />
-
-    <TextView
-        android:id="@+id/orders_title"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_left"
-        android:layout_marginBottom="@dimen/margin_left"
-        android:layout_below="@id/page_toolbar"
-        android:layout_centerHorizontal="true"
-        android:text="Orders" />
+        android:layout_margin="16dp"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <LinearLayout
-        android:id="@+id/orderBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/orders_title"
-        android:layout_gravity="fill"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/mainButton"
+        android:id="@+id/button1"
+        android:visibility="gone">
 
-        <LinearLayout
-            android:id="@+id/pending_view"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_right"
-            android:orientation="vertical">
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:padding="5dp"
+            android:text="Pocket Sensors" />
 
-            <TextView
-                android:id="@+id/pending_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pending" />
-
-            <TextView
-                android:id="@+id/pending_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/pending_title"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:text="0" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/processed_view"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/goToSensors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/pending_view"
-            android:orientation="vertical">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Processed" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="0"
-                android:id="@+id/processed_number"/>
+            android:layout_margin="16dp"
+            app:srcCompat="@android:drawable/ic_dialog_email"/>
 
 
-        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/button1"
+        android:id="@+id/button2"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:padding="5dp"
+            android:text="Scan Items" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/scanItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:onClick="getScanner"
+            app:srcCompat="@android:drawable/ic_dialog_email" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/button2"
+        android:id="@+id/button3"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:padding="5dp"
+            android:text="Add Products" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addProducts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:srcCompat="@android:drawable/ic_dialog_email"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/button3"
+        android:id="@+id/button4"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:padding="5dp"
+            android:text="Add Shipment" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addShipment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:onClick="getReadings"
+            app:srcCompat="@android:drawable/ic_dialog_email" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+
     <!--
-            <LinearLayout
-                android:id="@+id/shipped_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_right"
-                android:layout_toEndOf="@id/processed_view"
-                android:orientation="vertical">
+     <androidx.appcompat.widget.Toolbar
+         android:id="@+id/page_toolbar"
+         android:layout_width="match_parent"
+         android:layout_height="?attr/actionBarSize"
+         android:layout_alignParentTop="true"
+         android:background="@color/colorPrimary"
+         android:elevation="4dp"
+         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+         />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Shipped" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="0"
-                    android:id="@+id/shipped_number"/>
+     <androidx.appcompat.widget.ActionMenuView
+         android:id="@+id/bottom_toolbar"
+         android:layout_width="match_parent"
+         android:layout_height="?attr/actionBarSize"
+         android:layout_alignParentBottom="true"
+         android:background="@color/colorPrimary"
+         android:textColorPrimary="@color/colorAccent"
+         android:elevation="10dp" />
 
-            </LinearLayout>
+     <TextView
+         android:id="@+id/orders_title"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="@dimen/margin_left"
+         android:layout_marginBottom="@dimen/margin_left"
+         android:layout_below="@id/page_toolbar"
+         android:layout_centerHorizontal="true"
+         android:text="Orders" />
 
-            <LinearLayout
-                android:id="@+id/confirming_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/shipped_view"
-                android:orientation="vertical"
+     <LinearLayout
+         android:id="@+id/orderBar"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/orders_title"
+         android:layout_gravity="fill"
+         android:orientation="horizontal"
+         android:layout_centerHorizontal="true">
 
-                >
+         <LinearLayout
+             android:id="@+id/pending_view"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginEnd="@dimen/margin_right"
+             android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Confirming" />
+             <TextView
+                 android:id="@+id/pending_title"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Pending" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="0"
-                    android:id="@+id/confirming_number"/>
+             <TextView
+                 android:id="@+id/pending_number"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@id/pending_title"
+                 android:layout_centerHorizontal="true"
+                 android:layout_gravity="center_horizontal"
+                 android:text="0" />
+         </LinearLayout>
 
-            </LinearLayout>
--->
+         <LinearLayout
+             android:id="@+id/processed_view"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_toEndOf="@id/pending_view"
+             android:orientation="vertical">
+
+             <TextView
+
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Processed" />
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center_horizontal"
+                 android:text="0"
+                 android:id="@+id/processed_number"/>
+
+
+         </LinearLayout>
+
+             <LinearLayout
+                 android:id="@+id/shipped_view"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginEnd="@dimen/margin_right"
+                 android:layout_toEndOf="@id/processed_view"
+                 android:orientation="vertical">
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Shipped" />
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center_horizontal"
+                     android:text="0"
+                     android:id="@+id/shipped_number"/>
+
+             </LinearLayout>
+
+             <LinearLayout
+                 android:id="@+id/confirming_view"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_toEndOf="@id/shipped_view"
+                 android:orientation="vertical"
+
+                 >
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Confirming" />
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center_horizontal"
+                     android:text="0"
+                     android:id="@+id/confirming_number"/>
+
+             </LinearLayout>
+
         </LinearLayout>
 
         <TextView
@@ -212,16 +336,16 @@
             </LinearLayout>
 
 
-        </LinearLayout>
-
-
-    <Button
+<Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/warehouseReadouts"
         android:layout_centerHorizontal="true"
         android:onClick="getReadings"
-        android:text="Test Readings" />
+        android:text="Test Readings"
+        />
 
-</RelativeLayout>
+
+        </LinearLayout> -->
+

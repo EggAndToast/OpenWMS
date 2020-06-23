@@ -1,4 +1,4 @@
-package com.example.openwms;
+package com.example.openwms.archive;
 
 import java.util.List;
 

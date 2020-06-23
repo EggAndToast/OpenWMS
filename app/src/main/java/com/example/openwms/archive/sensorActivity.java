@@ -1,4 +1,4 @@
-package com.example.openwms;
+package com.example.openwms.archive;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.TextView;
+
+import com.example.openwms.R;
 
 import org.w3c.dom.Text;
 

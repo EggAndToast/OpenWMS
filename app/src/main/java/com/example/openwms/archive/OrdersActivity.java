@@ -1,4 +1,4 @@
-package com.example.openwms;
+package com.example.openwms.archive;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.openwms.MainActivity;
+import com.example.openwms.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -22,7 +24,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrdersActivity extends AppCompatActivity {
 
@@ -130,7 +131,7 @@ public class OrdersActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.dashboard:
-                Intent dashboard = new Intent(this,MainActivity.class);
+                Intent dashboard = new Intent(this, MainActivity.class);
                 startActivity(dashboard);
                 finish();
                 return true;
