@@ -6,4 +6,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <string-array name="materialList">
+        <item>PLA</item>
+        <item>ABS</item>
+        <item>PETG</item>
+    </string-array>
+
 </resources>

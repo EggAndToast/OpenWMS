@@ -32,8 +32,6 @@ public class scannerActivity extends AppCompatActivity {
     private TextView barcodeText;
     private String barcodeData;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

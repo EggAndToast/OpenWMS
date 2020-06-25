@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginLeft="@dimen/margin_left"
+    android:padding="@dimen/margin_left"
+    android:layout_marginRight="@dimen/margin_right">
 
-    <TextView
-        android:id="@+id/humiditySensor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Humidity"
-        tools:layout_editor_absoluteX="210dp"
-        tools:layout_editor_absoluteY="257dp" />
+
+        <ImageView
+            android:layout_marginTop="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/baseline_opacity_black_18dp" android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/humiditySensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Humidity"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:layout_marginBottom="20dp" />
+
+
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/baseline_ac_unit_black_18dp" android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/temperatureSensor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Temp"
-        tools:layout_editor_absoluteX="114dp"
-        tools:layout_editor_absoluteY="257dp" />
+        android:textSize="20sp"
+        android:layout_gravity="center"/>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

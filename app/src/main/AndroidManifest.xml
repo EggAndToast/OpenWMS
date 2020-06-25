@@ -26,11 +26,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".scannerActivity"></activity>
-        <activity android:name=".archive.OrdersActivity"></activity>
-        <activity android:name=".archive.ProductsActivity"></activity>
-        <activity android:name=".archive.OrdersDisplayActivity"
-            android:parentActivityName=".archive.OrdersActivity"></activity>
-        <activity android:name=".archive.sensorActivity"></activity>
+        <activity android:name=".addProduct" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".sensorActivity"  android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

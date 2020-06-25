@@ -1,4 +1,4 @@
-package com.example.openwms.archive;
+package com.example.openwms;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,23 +10,28 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.openwms.R;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 
-public class sensorActivity extends Activity implements SensorEventListener {
+
+public class sensorActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor humiditySensor;
+    private Sensor temperatureSensor;
     private TextView humidity;
     private TextView temperature;
-    CountDownTimer countDownTimer;
-    TextView tvTime;
 
     @Override
     public final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor);
+        setTitle("Pocket Sensors");
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         humidity = (TextView) findViewById(R.id.humiditySensor);
         temperature = (TextView) findViewById(R.id.temperatureSensor);
@@ -35,6 +40,8 @@ public class sensorActivity extends Activity implements SensorEventListener {
         // a particular sensor.
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         humiditySensor = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+        temperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+
     }
 
     @Override
@@ -44,9 +51,15 @@ public class sensorActivity extends Activity implements SensorEventListener {
 
     @Override
     public final void onSensorChanged(SensorEvent event) {
-        float millibarsOfPressure = event.values[0];
-        // Do something with this sensor data.
-        humidity.setText("Humidity: " + millibarsOfPressure);
+        if (event.sensor.getType() == Sensor.TYPE_RELATIVE_HUMIDITY) {
+            float humidityValues = event.values[0];
+            humidity.setText("Humidity: "+ humidityValues);
+        }
+        if (event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
+            float temperatureValues = event.values[0];
+            temperature.setText("Temperature: " + temperatureValues);
+    }
+
     }
 
     @Override
@@ -54,6 +67,7 @@ public class sensorActivity extends Activity implements SensorEventListener {
         // Register a listener for the sensor.
         super.onResume();
         sensorManager.registerListener(this, humiditySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, temperatureSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
