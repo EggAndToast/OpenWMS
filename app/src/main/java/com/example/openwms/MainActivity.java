@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isMainButtonOpen = false;
     private FloatingActionButton mainButton;
-    private LinearLayout button1, button2;
+    private LinearLayout button1, button2, button3;
     private RecyclerView productList;
     private RecyclerView.Adapter newProductAdapter;
     private FirebaseFirestoreSettings settings;
@@ -79,12 +79,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.top_nav, menu);
-
         mainButton = findViewById(R.id.mainButton);
 
         button1 = (LinearLayout) findViewById(R.id.button1);
         button2 = (LinearLayout) findViewById(R.id.button2);
+        button3 = (LinearLayout) findViewById(R.id.button3);
 
         mainButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,20 +109,23 @@ public class MainActivity extends AppCompatActivity {
 
         button1.setVisibility(View.VISIBLE);
         button2.setVisibility(View.VISIBLE);
+        button3.setVisibility(View.VISIBLE);
 
-        mainButton.animate().rotationBy(180);
+        mainButton.animate().rotationBy(90);
 
         button1.animate().translationY(-80);
         button2.animate().translationY(-100);
+        button3.animate().translationY(-120);
     }
 
     private void closeMainButtonMenu(){
         isMainButtonOpen=false;
 
-        mainButton.animate().rotationBy(180);
+        mainButton.animate().rotationBy(90);
 
         button1.animate().translationY(0);
-        button2.animate().translationY(0).setListener(new Animator.AnimatorListener() {
+        button2.animate().translationY(0);
+        button3.animate().translationY(0).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -134,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!isMainButtonOpen) {
                     button1.setVisibility(View.GONE);
                     button2.setVisibility(View.GONE);
+                    button3.setVisibility(View.GONE);
                 }
             }
 
@@ -163,8 +166,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void getScanner(View view) {
+    public void scanIn(View view) {
         Intent intent = new Intent(this,scannerActivity.class);
+        intent.putExtra("KEY_STATUS","in");
+        startActivity(intent);
+    }
+
+    public void scanOut(View view) {
+        Intent intent = new Intent(this,scannerActivity.class);
+        intent.putExtra("KEY_STATUS","out");
         startActivity(intent);
     }
 

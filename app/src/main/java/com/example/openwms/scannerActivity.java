@@ -1,13 +1,18 @@
 package com.example.openwms;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,6 +25,10 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class scannerActivity extends AppCompatActivity {
@@ -29,16 +38,20 @@ public class scannerActivity extends AppCompatActivity {
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private ToneGenerator toneGen1;
-    private TextView barcodeText;
+    private TextView barcodeTextView;
     private String barcodeData;
+    private String status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         surfaceView = findViewById(R.id.surface_view);
-        barcodeText = findViewById(R.id.barcode_text);
+        barcodeTextView = findViewById(R.id.barcode_text);
         initialiseDetectorsAndSources();
     }
 
@@ -47,7 +60,7 @@ public class scannerActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
 
         barcodeDetector = new BarcodeDetector.Builder(this)
-                .setBarcodeFormats(Barcode.ALL_FORMATS)
+                .setBarcodeFormats(Barcode.QR_CODE)
                 .build();
 
         cameraSource = new CameraSource.Builder(this, barcodeDetector)
@@ -64,15 +77,23 @@ public class scannerActivity extends AppCompatActivity {
                     } else {
                         ActivityCompat.requestPermissions(com.example.openwms.scannerActivity.this, new
                                 String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+
+                     try {   if (ActivityCompat.checkSelfPermission(com.example.openwms.scannerActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                            cameraSource.start(surfaceView.getHolder());
+                        }
+
+                        else {
+                            Toast.makeText(getApplicationContext(), "Camera Permission was not granted.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } } catch (IOException e) {
+                         e.printStackTrace();
+                     }
                     }
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
             }
-
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             }
@@ -87,52 +108,54 @@ public class scannerActivity extends AppCompatActivity {
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
-                // Toast.makeText(getApplicationContext(), "To prevent memory leaks barcode scanner has been stopped", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
+
+                StringBuilder barcodeText = new StringBuilder();
+                ArrayList<String> barcodeArray = new ArrayList<String>();
+
                 if (barcodes.size() != 0) {
 
+                    barcodeData = barcodes.valueAt(0).displayValue;
+                    toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
 
-                    barcodeText.post(new Runnable() {
 
-                        @Override
-                        public void run() {
-
-                            if (barcodes.valueAt(0).email != null) {
-                                barcodeText.removeCallbacks(null);
-                                barcodeData = barcodes.valueAt(0).email.address;
-                                barcodeText.setText(barcodeData);
-                                toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-                            } else {
-
-                                barcodeData = barcodes.valueAt(0).displayValue;
-                                barcodeText.setText(barcodeData);
-                                toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-
-                            }
+                    if (barcodeArray.contains(barcodeData)) {
+                        //Do nothing
+                    }
+                    else {
+                        barcodeArray.add(barcodeData);
+                        if (barcodeArray.size() == 1) {
+                            barcodeText.append(barcodeData);
                         }
-                    });
+                        else {
+                            barcodeText.append(barcodeData);
+                            barcodeText.append(", ");
+                        }
+                        barcodeTextView.setText(barcodeText.toString());
+                        Log.d("LOG BARCODE", "BARCODE => " + barcodeText.toString());
+                        cameraSource.stop();
+                    }
 
-                }
-            }
-        });
+                        }
+
+                        } });
+
+
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-        getSupportActionBar().hide();
         cameraSource.release();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getSupportActionBar().hide();
         initialiseDetectorsAndSources();
     }
 

@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email"
+        app:srcCompat="@drawable/baseline_more_vert_black_18dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:onClick="getReadings"
-            app:srcCompat="@android:drawable/ic_dialog_email" />
+            app:srcCompat="@drawable/baseline_sensor_window_black_18dp" />
 
 
     </LinearLayout>
@@ -64,16 +64,40 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="10dp"
             android:padding="5dp"
-            android:text="Scan Items" />
+            android:text="Scan In" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/scanItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:onClick="getScanner"
-            app:srcCompat="@android:drawable/ic_dialog_email" />
+            android:onClick="scanIn"
+            app:srcCompat="@drawable/baseline_qr_code_scanner_black_18dp" />
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/button2"
+        android:id="@+id/button3"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:padding="5dp"
+            android:text="Scan Out" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:onClick="scanOut"
+            app:srcCompat="@drawable/baseline_qr_code_scanner_black_18dp" />
 
     </LinearLayout>
 
