@@ -3,79 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="20dp">
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="10dp">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="20dp"
-        android:background="@android:color/darker_gray"
-        android:padding="8dp"
-        android:scaleType="centerCrop" />
+   <TextView
+       android:id="@+id/shipmentID"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Shipment Name"
+       android:layout_marginBottom="7sp"
+       android:textSize="18dp"
+       />
 
-    <LinearLayout
-        android:id="@+id/productInfo"
+    <TextView
+        android:id="@+id/contentArray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="70dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/productName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Product Name"
-                android:textSize="16sp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/quantityNeeded"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:text="Needed"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/quantityScanned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Scanned"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <ImageView
-        android:id="@+id/scanSymbol"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="23dp"
-        android:background="@android:color/darker_gray"
-        android:padding="8dp"
-        android:scaleType="centerCrop" />
+        android:text="Shipment Content - Quantity: XXX"
+        android:textSize="16dp"
+        />
 
 </LinearLayout>

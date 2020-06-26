@@ -16,6 +16,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,12 +42,18 @@ public class scannerActivity extends AppCompatActivity {
     private TextView barcodeTextView;
     private String barcodeData;
     private String status;
+    StringBuilder barcodeText = new StringBuilder();
+    ArrayList<String> barcodeArray = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent intent = getIntent();
+        status = intent.getStringExtra("KEY_STATUS");
+        setTitle("Scan " + status + " items");
 
 
         toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
@@ -56,8 +63,6 @@ public class scannerActivity extends AppCompatActivity {
     }
 
     private void initialiseDetectorsAndSources() {
-
-        Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
 
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE)
@@ -72,28 +77,23 @@ public class scannerActivity extends AppCompatActivity {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    if (ActivityCompat.checkSelfPermission(com.example.openwms.scannerActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+
+
+                    if (ActivityCompat.checkSelfPermission(scannerActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         cameraSource.start(surfaceView.getHolder());
+                        Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
                     } else {
-                        ActivityCompat.requestPermissions(com.example.openwms.scannerActivity.this, new
+                        ActivityCompat.requestPermissions(scannerActivity.this, new
                                 String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
-
-                     try {   if (ActivityCompat.checkSelfPermission(com.example.openwms.scannerActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                            cameraSource.start(surfaceView.getHolder());
-                        }
-
-                        else {
-                            Toast.makeText(getApplicationContext(), "Camera Permission was not granted.", Toast.LENGTH_SHORT).show();
-                            finish();
-                        } } catch (IOException e) {
-                         e.printStackTrace();
-                     }
                     }
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+
+
+
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             }
@@ -102,10 +102,15 @@ public class scannerActivity extends AppCompatActivity {
             public void surfaceDestroyed(SurfaceHolder holder) {
                 cameraSource.stop();
             }
+
+
+
         });
 
-
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
+
+
+
             @Override
             public void release() {
             }
@@ -113,50 +118,92 @@ public class scannerActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
-                StringBuilder barcodeText = new StringBuilder();
-                ArrayList<String> barcodeArray = new ArrayList<String>();
-
                 if (barcodes.size() != 0) {
 
-                    barcodeData = barcodes.valueAt(0).displayValue;
-                    toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
+                    barcodeTextView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            barcodeData = barcodes.valueAt(0).displayValue;
 
+                            Intent intent = new Intent(scannerActivity.this, itemScannedActivity.class);
+                            intent.putExtra("KEY_STATUS", status);
+                           // barcodeData = "testShipment001";
+                            intent.putExtra("QR_CODE", "testShipment001");
+                            startActivity(intent);
+/*
+                            if (!barcodeArray.contains(barcodeData)) {
+                                barcodeArray.add(barcodeData);
+                                toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
 
-                    if (barcodeArray.contains(barcodeData)) {
-                        //Do nothing
-                    }
-                    else {
-                        barcodeArray.add(barcodeData);
-                        if (barcodeArray.size() == 1) {
-                            barcodeText.append(barcodeData);
+                                barcodeText.append(barcodeData).append(System.getProperty("line.separator"));
+
+                                barcodeTextView.setText(barcodeText.toString());
+                                Log.d("LOG BARCODE", "BARCODE => " + barcodeArray.toString());
+                            } */
+
                         }
-                        else {
-                            barcodeText.append(barcodeData);
-                            barcodeText.append(", ");
-                        }
-                        barcodeTextView.setText(barcodeText.toString());
-                        Log.d("LOG BARCODE", "BARCODE => " + barcodeText.toString());
-                        cameraSource.stop();
-                    }
+                    });
 
-                        }
-
+                }
                         } });
 
 
     }
 
+    public void proceedToNext(View view) {
+        Intent intent = new Intent(scannerActivity.this, itemScannedActivity.class);
+        intent.putExtra("KEY_STATUS", status);
+        barcodeArray.add("testShipment001");
+        intent.putExtra("QR_CODE", "testShipment001");
+        startActivity(intent);
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
-        cameraSource.release();
+        //cameraSource.release();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         initialiseDetectorsAndSources();
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    try {
+                        Toast.makeText(getApplicationContext(), "Permission Granted!", Toast.LENGTH_SHORT).show();
+                        cameraSource.start(surfaceView.getHolder());
+                        Toast.makeText(getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(scannerActivity.this, "Permission denied, Exiting", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
 }

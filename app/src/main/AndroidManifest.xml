@@ -32,6 +32,7 @@
         <activity android:name=".scannerActivity" android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".addProduct" android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".sensorActivity"  android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".itemScannedActivity" android:parentActivityName=".scannerActivity"></activity>
     </application>
 
 </manifest>
